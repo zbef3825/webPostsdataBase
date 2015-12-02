@@ -35,7 +35,7 @@ module.exports = function(app) {
 function databaseSave(data, category, res) {
 	//saving data into MongoDB
 	
-	if (!data) {
+	if (!data || category === undefined) {
 		//if data is empty after json parse, response with 500 status
 			return res.status(500).send("Error occured in POST database: Incorrect JSON file/format");
 		}
