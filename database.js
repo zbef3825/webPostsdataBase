@@ -104,8 +104,7 @@ function databaseSearch(res, category, date) {
 
 function databaseDownload (res) {
 	
-	var result,
-		fields = ['postTitle', 'postUpvote', 'postLink', 'commentLink', 'rankingPosition', 'lastUpdate', 'postOrigin'];
+	var fields = ['postTitle', 'postUpvote', 'postLink', 'commentLink', 'rankingPosition', 'lastUpdate', 'postOrigin'];
 	
 	databaseModel.find({}, function(err,docs){
 		if (err) {
