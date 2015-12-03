@@ -14,7 +14,7 @@ module.exports = function(app) {
 	
 	app.get('/database', function(req, res) {
 		//prints out all posts	
-		databaseSearch(res, null, null);
+		databaseSearch(res);
 	});
 	
 	app.get('/database/download', function(req, res) {
@@ -23,7 +23,7 @@ module.exports = function(app) {
 	
 	app.get('/database/:category', function(req, res) {
 		//prints out all posts of :category	
-		databaseSearch(res, req.params.category, null);
+		databaseSearch(res, req.params.category);
 	});
 	
 	app.get('/database/:category/:date', function(req, res) {
@@ -75,17 +75,20 @@ function databaseSearch(res, category, date) {
 	var search = {};
 	
 	//requires pipline updates in the future
-	if((!category || category === undefined) && category != null ) {
-		return res.status(404).send("Incorrect Category Format");
+	if((!category || category === undefined) && ((!date || date === undefined) || date.length !== 8)) {
+		search = {};
 	}
 	
-	if(((!date || date === undefined) || date.length !== 8) && date != null) {
-		return res.status(404).send("Incorrect Date Format");
-	}
-	
-	search = {postOrigin: category,
+	else if (((!date || date === undefined) || date.length !== 8)) {
+		search = {
+			postOrigin: category
+		};		
+	} 
+	else {
+		search = {postOrigin: category,
 			lastUpdate: moment(date,"YYYYMMDD").format("ddd, MMM DD YYYY")};
-			
+	}
+	
 	databaseModel.find(search, function(err, docs){
 			if (err) {
 				return res.status(500).send("Error occured in GET databaseModel");
