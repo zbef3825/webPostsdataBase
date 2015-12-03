@@ -7,6 +7,8 @@ var PORT = process.env.PORT || 3000;
 
 var database = require('./database.js');
 
+app.use(express.static(__dirname + '/public'));
+
 database(app);
 
 
