@@ -1,11 +1,9 @@
 var bodyParser = require('body-parser');
 var databaseModel = require('./databaseModel.js');
+var moment = require('moment');
+var _ = require('underscore');
 
 var bodyParserJson = bodyParser.json();
-
-
-	
-//var moment = require('moment');
 
 module.exports = function(app) {
 	
@@ -39,9 +37,10 @@ function databaseSave(data, category, res) {
 		//if data is empty after json parse, response with 500 status
 			return res.status(500).send("Error occured in POST database: Incorrect JSON file/format");
 		}
-		
-	var request = databaseModel(data);
+	
+	var request = databaseModel(_.extend(data, {lastUpdate: moment().format("ddd, MMM Do YYYY"), postOrigin: category}));
 	//creating database model using function constructor
+	//adding time and source properties
 	
 	request.save(function(err){
 		//save the requested data and throw error if there is
@@ -60,11 +59,9 @@ function databaseSearch(res) {
 	//requires pipline updates in the future
 		databaseModel.find({}, function(err, docs){
 			if (err) {
-				console.error(err);
 				res.status(500).send("Error occured in GET databaseModel");
 			}
 			else {
-				console.log(docs);
 				res.send(docs);
 			}						
 		});
