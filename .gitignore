@@ -1,5 +1,5 @@
-/.vscode
-/node_modules
-/Download
-/databaseModel.js
-/public
+.vscode/
+node_modules/
+Download/
+databaseModel.js
+public/
