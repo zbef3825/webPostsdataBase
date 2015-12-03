@@ -2,6 +2,8 @@ var bodyParser = require('body-parser');
 var databaseModel = require('./databaseModel.js');
 var moment = require('moment');
 var _ = require('underscore');
+var json2csv = require('json2csv');
+var fs = require('fs');
 
 var bodyParserJson = bodyParser.json();
 
@@ -13,6 +15,10 @@ module.exports = function(app) {
 	app.get('/database/', function(req, res) {
 		//prints out all posts	
 		databaseSearch(res);
+	});
+	
+	app.get('/database/download', function(req, res) {
+		databaseDownload(res);
 	});
 	
 	app.get('/database/:category', function(req, res) {
@@ -93,5 +99,48 @@ function databaseSearch(res, category, date) {
 				return res.send(docs);
 			}						
 		});
+	
+}
+
+function databaseDownload (res) {
+	
+	var result,
+		fields = ['postTitle', 'postUpvote', 'postLink', 'commentLink', 'rankingPosition', 'lastUpdate', 'postOrigin'];
+	
+	databaseModel.find({}, function(err,docs){
+		if (err) {
+			return res.status(500).send("Error occured in GET databaseModel");
+		}
+		else if (docs[0] === undefined) {
+			return res.status(404).send("No Result found!");
+			}
+		else {
+			json2csv({data: docs, fields: fields}, function (err, csv){
+			if (err) console.error(err);	
+			fs.writeFile(__dirname + "/Download/result.csv", csv, function (err){
+				if(err) throw err;
+					});
+				});
+			}	
+	});
+	
+	
+	var options = {
+		root: __dirname + '/Download',
+		dotfiles: 'deny',
+		header: {
+			timestamp: moment()
+		}
+	};
+	
+	res.sendFile('result.csv', options, function (err) {
+		if (err) {
+			return res.status(err.status);
+		}
+		else {
+			return res.status(200);
+		}
+	});
+	
 	
 }
