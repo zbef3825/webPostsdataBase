@@ -13,6 +13,6 @@ var dataAttributes = new Schema({
 		postOrigin : String
 });
 
-var databaseModel = mongoose.model('reddit', dataAttributes);
+var databaseModel = mongoose.model('webposts', dataAttributes);
 
 module.exports = databaseModel;

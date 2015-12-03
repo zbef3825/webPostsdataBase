@@ -11,9 +11,20 @@ module.exports = function(app) {
 	//error handling middleware
 	
 	app.get('/database/', function(req, res) {
-		//prints out posts	
+		//prints out all posts	
 		databaseSearch(res);
 	});
+	
+	app.get('/database/:category', function(req, res) {
+		//prints out all posts of :category	
+		databaseSearch(res, req.params.category);
+	});
+	
+	app.get('/database/:category/:date', function(req, res) {
+		//prints out all posts of :category	
+		databaseSearch(res, req.params.category, req.params.date);
+	});
+
 	
 	app.post('/database/:category', bodyParserJson, function(req,res) {	
 		//storing data of :category				
@@ -38,7 +49,7 @@ function databaseSave(data, category, res) {
 			return res.status(500).send("Error occured in POST database: Incorrect JSON file/format");
 		}
 	
-	var request = databaseModel(_.extend(data, {lastUpdate: moment().format("ddd, MMM Do YYYY"), postOrigin: category}));
+	var request = databaseModel(_.extend(data, {lastUpdate: moment().format("ddd, MMM DD YYYY"), postOrigin: category}));
 	//creating database model using function constructor
 	//adding time and source properties
 	
@@ -52,17 +63,34 @@ function databaseSave(data, category, res) {
 	
 }
 
-function databaseSearch(res) {
+function databaseSearch(res, category, date) {
 	//searching database
 	//pass in parameters for filter search
+	var search = {};
 	
 	//requires pipline updates in the future
-		databaseModel.find({}, function(err, docs){
+	if(!category || category === undefined) {
+		return res.status(404).send("Incorrect Category Format");
+	}
+	
+	if((!date || date === undefined) || date.length !== 8) {
+		return res.status(404).send("Incorrect Date Format");
+	}
+	
+	search = {postOrigin: category,
+			lastUpdate: moment(date,"YYYYMMDD").format("ddd, MMM DD YYYY")};
+			
+	databaseModel.find(search, function(err, docs){
 			if (err) {
-				res.status(500).send("Error occured in GET databaseModel");
+				return res.status(500).send("Error occured in GET databaseModel");
 			}
+			
+			else if (docs[0] === undefined) {
+				return res.status(404).send("No Result found!");
+			}
+			
 			else {
-				res.send(docs);
+				return res.send(docs);
 			}						
 		});
 	
