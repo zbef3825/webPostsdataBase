@@ -135,10 +135,7 @@ function databaseDownload (res) {
 	
 	res.sendFile('result.csv', options, function (err) {
 		if (err) {
-			return res.status(err.status);
-		}
-		else {
-			return res.status(200);
+			throw err;
 		}
 	});
 	
