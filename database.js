@@ -4,6 +4,7 @@ var moment = require('moment');
 var _ = require('underscore');
 var json2csv = require('json2csv');
 var fs = require('fs');
+var path = require('path');
 
 var bodyParserJson = bodyParser.json();
 
@@ -17,7 +18,7 @@ module.exports = function(app) {
 		databaseSearch(res);
 	});
 	
-	app.get('/database/download', function(req, res) {
+	app.get('/database_download', function(req, res) {
 		databaseDownload(res);
 	});
 	
@@ -132,7 +133,7 @@ function databaseDownload (res) {
 	
 	var options = {
 		//options for sending file. What is required
-		root: __dirname + '/Download',
+		root: path.join(__dirname + '/Download'),
 		dotfiles: 'deny',
 		header: {
 			timestamp: moment()
