@@ -1,5 +1,5 @@
 var bodyParser = require('body-parser');
-var databaseModel = require('./databaseModel.js');
+var databaseModel = require(__dirname + '/databaseModel.js');
 var moment = require('moment');
 var _ = require('underscore');
 var json2csv = require('json2csv');

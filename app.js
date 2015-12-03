@@ -5,7 +5,7 @@ var app = express();
 var port = process.env.PORT || 3000;
 //setting up local port or current environment port
 
-var database = require('./database');
+var database = require(__dirname +'/database.js');
 
 database(app);
 
