@@ -12,7 +12,11 @@ module.exports = function(app) {
 	app.use('/database',databaseError);
 	//error handling middleware
 	
-	app.get('/database/', function(req, res) {
+	app.get('/', function(req, res) {
+	res.send('Todo API Root');
+	});
+	
+	app.get('/database', function(req, res) {
 		//prints out all posts	
 		databaseSearch(res);
 	});
