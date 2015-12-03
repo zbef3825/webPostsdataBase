@@ -105,8 +105,10 @@ function databaseSearch(res, category, date) {
 function databaseDownload (res) {
 	
 	var fields = ['postTitle', 'postUpvote', 'postLink', 'commentLink', 'rankingPosition', 'lastUpdate', 'postOrigin'];
+	//fields that required by json2csv module
 	
-	databaseModel.find({}, function(err,docs){
+	databaseModel.find({}, function(err,docs) {
+		//finding all webposts from mongoDB
 		if (err) {
 			return res.status(500).send("Error occured in GET databaseModel");
 		}
@@ -114,6 +116,7 @@ function databaseDownload (res) {
 			return res.status(404).send("No Result found!");
 			}
 		else {
+			//if docs is not empty convert json to csv and write a file in Donwload folder
 			json2csv({data: docs, fields: fields}, function (err, csv){
 			if (err) console.error(err);	
 			fs.writeFile(__dirname + "/Download/result.csv", csv, function (err){
@@ -125,6 +128,7 @@ function databaseDownload (res) {
 	
 	
 	var options = {
+		//options for sending file. What is required
 		root: __dirname + '/Download',
 		dotfiles: 'deny',
 		header: {
@@ -133,6 +137,7 @@ function databaseDownload (res) {
 	};
 	
 	res.sendFile('result.csv', options, function (err) {
+		//sending file
 		if (err) {
 			throw err;
 		}
