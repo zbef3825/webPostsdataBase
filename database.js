@@ -123,7 +123,7 @@ function databaseDownload (res) {
 			//if docs is not empty convert json to csv and write a file in Donwload folder
 			json2csv({data: docs, fields: fields}, function (err, csv){
 			if (err) console.error(err);	
-			fs.writeFile("/Download/result.csv", csv, function (err){
+			fs.writeFile("result.csv", csv, function (err){
 				if(err) throw err;
 					});
 				});
@@ -133,7 +133,7 @@ function databaseDownload (res) {
 	
 	var options = {
 		//options for sending file. What is required
-		root: path.join(__dirname + '/Download'),
+		root: __dirname,
 		dotfiles: 'deny',
 		header: {
 			timestamp: moment()
