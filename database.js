@@ -114,6 +114,7 @@ function databaseDownload (res) {
 	databaseModel.find({}, function(err,docs) {
 		//finding all webposts from mongoDB
 		if (err) {
+			
 			return res.status(500).send("Error occured in GET databaseModel");
 		}
 		else if (docs[0] === undefined) {
@@ -122,24 +123,22 @@ function databaseDownload (res) {
 		else {
 			//if docs is not empty convert json to csv and write a file in Donwload folder
 			json2csv({data: docs, fields: fields}, function (err, csv){
-			if (err) console.error(err);	
-			fs.writeFile("result.csv", csv, function (err){
+			if (err) console.error(err);
+			var data = csv;
+			fs.writeFile("result.csv", data, function (err){
 				if(err) throw err;
 					});
 				});
 			}	
 	});
-	
-	
 	var options = {
 		//options for sending file. What is required
-		root: __dirname,
+		root: path.join(__dirname),
 		dotfiles: 'deny',
 		header: {
 			timestamp: moment()
 		}
 	};
-	
 	res.sendFile('result.csv', options, function (err) {
 		//sending file
 		if (err) {
