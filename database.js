@@ -18,7 +18,7 @@ module.exports = function(app) {
 		databaseSearch(res);
 	});
 	
-	app.get('/database_download', function(req, res) {
+	app.get('/database/download', function(req, res) {
 		databaseDownload(res);
 	});
 	
