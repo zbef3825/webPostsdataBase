@@ -12,13 +12,9 @@ module.exports = function(app) {
 	app.use('/database',databaseError);
 	//error handling middleware
 	
-	app.get('/', function(req, res) {
-	res.send('Todo API Root');
-	});
-	
 	app.get('/database', function(req, res) {
 		//prints out all posts	
-		databaseSearch(res);
+		databaseSearch(res, null, null);
 	});
 	
 	app.get('/database/download', function(req, res) {
@@ -27,7 +23,7 @@ module.exports = function(app) {
 	
 	app.get('/database/:category', function(req, res) {
 		//prints out all posts of :category	
-		databaseSearch(res, req.params.category);
+		databaseSearch(res, req.params.category, null);
 	});
 	
 	app.get('/database/:category/:date', function(req, res) {
@@ -79,11 +75,11 @@ function databaseSearch(res, category, date) {
 	var search = {};
 	
 	//requires pipline updates in the future
-	if(!category || category === undefined) {
+	if((!category || category === undefined) && category != null ) {
 		return res.status(404).send("Incorrect Category Format");
 	}
 	
-	if((!date || date === undefined) || date.length !== 8) {
+	if(((!date || date === undefined) || date.length !== 8) && date != null) {
 		return res.status(404).send("Incorrect Date Format");
 	}
 	
