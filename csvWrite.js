@@ -30,12 +30,7 @@ function CSVFILE(res, docs) {
 			if (!stats.isFile()) {
 			//if it doesnt exists, write the file
 			console.log("Initiating result.csv file!");
-			fs.writeFile(path.join(__dirname + '/temp/result.csv'), "Initiated", function(err) {
-				if (err) {
-					console.error(err);
-					return res.status(500).send("Error initiating csv file");;
-				}
-			});		
+			fs.writeFileSync(path.join(__dirname + '/temp/result.csv'), "Initiated");		
 			}
 		});	
 		
