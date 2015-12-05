@@ -116,15 +116,11 @@ function databaseSearch(res, category, date) {
 	
 }
 
-function databaseDownload (res) {	
-	json2csvFunc.checkFile(res)
-	//check if csv file exists
-	//this is only useful when starting server
-	databasedownloadSearch(res);
-	//will look for all web posts and send users csv file
-}
-
-function databasedownloadSearch (res) {
+function databaseDownload (res) {
+		json2csvFunc.checkFile(res)
+		//check if csv file exists
+		//this is only useful when starting server
+	
 		databaseModel.find({}, function(err,docs) {
 		//finding all webposts from mongoDB
 		if (err) {
@@ -134,8 +130,9 @@ function databasedownloadSearch (res) {
 			res.status(404).send("No Result found!");
 			}
 		else {
+			//when found convert json to csv
 			json2csvFunc.writingCSVsending(res, docs, function() {
-				console.log("Sending result.csv file");
+				//when it is done writing, invokes sending function
 				res.sendFile('result.csv', options, function (err) {
 				//sending file
 				if (err) {
