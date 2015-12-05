@@ -14,15 +14,14 @@ function CSVFILE(res, docs) {
 				console.error(err);
 				return res.status(500).send("Error converting to CSV format");
 			}
-			file = fs.writeFile('result.csv', csv);
+			fs.writeFileSync(path.join(__dirname + '/temp/result.csv'), csv);
 			callback();
-			return file;
 			});	
 		
 	};
 	
 	this.checkFile = function(res) {		
-			fs.Stats(path.join(__dirname + "/result.csv"),function(err, stats) {
+			fs.Stats(path.join(__dirname + '/temp/result.csv'),function(err, stats) {
 			//checking if result.csv exists before writing
 			if (err) {
 				console.error(err);
@@ -31,7 +30,7 @@ function CSVFILE(res, docs) {
 			if (!stats.isFile()) {
 			//if it doesnt exists, write the file
 			console.log("Initiating result.csv file!");
-			fs.writeFile("result.csv", "Initiated", function(err) {
+			fs.writeFile(path.join(__dirname + '/temp/result.csv'), "Initiated", function(err) {
 				if (err) {
 					console.error(err);
 					return res.status(500).send("Error initiating csv file");;

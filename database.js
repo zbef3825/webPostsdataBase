@@ -131,9 +131,10 @@ function databaseDownload (res) {
 			}
 		else {
 			//when found convert json to csv
+			console.log(docs);
 			json2csvFunc.writingCSVsending(res, docs, function() {
 				//when it is done writing, invokes sending function
-				res.sendFile('result.csv', options, function (err) {
+				res.sendFile('/temp/result.csv', options, function (err) {
 				//sending file
 				if (err) {
 					throw err;
@@ -143,4 +144,3 @@ function databaseDownload (res) {
 		}
 	});
 }
-
