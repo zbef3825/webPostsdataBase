@@ -20,6 +20,12 @@ var options = {
 
 module.exports = function(app) {
 	
+	app.use(function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	next();
+	});
+	
 	app.use('/database',databaseError);
 	//error handling middleware
 	
@@ -113,7 +119,6 @@ function databaseSearch(res, category, date) {
 				return res.send(docs);
 			}						
 		});
-	
 }
 
 function databaseDownload (res) {
