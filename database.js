@@ -31,7 +31,7 @@ module.exports = function(app) {
 	
 	app.get('/database', function(req, res) {
 		//prints out all posts	
-		databaseSearch(res);
+		databaseSearch(res, req.query);
 	});
 	
 	app.get('/database/download', function(req, res) {
@@ -40,12 +40,12 @@ module.exports = function(app) {
 	
 	app.get('/database/:category', function(req, res) {
 		//prints out all posts of :category	
-		databaseSearch(res, req.params.category);
+		databaseSearch(res, req.query, req.params.category);
 	});
 	
 	app.get('/database/:category/:date', function(req, res) {
 		//prints out all posts of :category	
-		databaseSearch(res, req.params.category, req.params.date);
+		databaseSearch(res, req.query, req.params.category, req.params.date);
 	});
 
 	
@@ -86,10 +86,16 @@ function databaseSave(data, category, res) {
 	
 }
 
-function databaseSearch(res, category, date) {
+function databaseSearch(res, query, category, date) {
 	//searching database
 	//pass in parameters for filter search
 	var search = {};
+	var docSize = query.cnt || 10;
+	
+	if (docSize === 0) {
+		//default value
+		docSize = 10;
+	}
 	
 	//requires pipline updates in the future
 	if((!category || category === undefined) && ((!date || date === undefined) || date.length !== 8)) {
@@ -106,8 +112,11 @@ function databaseSearch(res, category, date) {
 			lastUpdate: moment(date,"YYYYMMDD").format("ddd, MMM DD YYYY")};
 	}
 	
-	databaseModel.find(search, function(err, docs){
-			if (err) {
+	databaseModel
+	.find(search)
+	.limit(docSize)
+	.exec(function(err, docs) {
+		if (err) {
 				return res.status(500).send("Error occured in GET databaseModel");
 			}
 			
@@ -117,8 +126,9 @@ function databaseSearch(res, category, date) {
 			
 			else {
 				return res.send(docs);
-			}						
-		});
+			}		
+		
+	});
 }
 
 function databaseDownload (res) {
@@ -126,8 +136,10 @@ function databaseDownload (res) {
 		//check if csv file exists
 		//this is only useful when starting server
 	
-		databaseModel.find({}, function(err,docs) {
-		//finding all webposts from mongoDB
+		databaseModel.find({})
+		.exec(function(err, docs) {
+			
+			//finding all webposts from mongoDB
 		if (err) {
 			res.status(500).send("Error occured in GET databaseModel");
 		}
@@ -141,10 +153,11 @@ function databaseDownload (res) {
 				res.sendFile('/temp/result.csv', options, function (err) {
 				//sending file
 				if (err) {
+					console.error(err);
 					throw err;
 					}
 				});	
 			});	
-		}
+		}		
 	});
 }

@@ -8,6 +8,7 @@ Instruction is written in index.html <br>
 <li>Pipeline/stream Data intake</li>
 <li>Asynch duplication check</li>
 <li>Add update API</li>
+<li>number of webposts GET request</li>
 </ul>
 
 <ul>Completed
