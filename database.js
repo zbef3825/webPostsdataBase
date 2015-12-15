@@ -111,7 +111,10 @@ function databaseSearch(res, query, category, date) {
 		search = {postOrigin: category,
 			lastUpdate: Number(moment(date,"YYYYMMDD").format("YYYYMMDD"))};
 	}
-	
+	//finding documents using search condition
+	//sort it by lastUpdate then post upvote
+	//limitize document to 10 or any requested size
+	//execute in sending documents to clients
 	databaseModel
 	.find(search)
 	.sort('-lastUpdate -postUpvote')
@@ -137,8 +140,10 @@ function databaseDownload (res) {
 		//check if csv file exists
 		//this is only useful when starting server
 	
+		//finding documents using search condition
+		//sort it by lastUpdate then post upvote
 		databaseModel.find({})
-		.sort({'lastUpdate': -1, 'postUpvote': -1})
+		.sort('-lastUpdate -postUpvote')
 		.exec(function(err, docs) {
 			//finding all webposts from mongoDB
 		if (err) {
