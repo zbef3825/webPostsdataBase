@@ -109,7 +109,7 @@ function databaseSearch(res, query, category, date) {
 	} 
 	else {
 		search = {postOrigin: category,
-			lastUpdate: moment(date,"YYYYMMDD").format("YYYYMMDD")};
+			lastUpdate: Number(moment(date,"YYYYMMDD").format("YYYYMMDD"))};
 	}
 	
 	databaseModel
