@@ -90,6 +90,7 @@ function databaseSearch(res, query, category, date) {
 	//searching database
 	//pass in parameters for filter search
 	var search = {};
+	var result = {};
 	var docSize = query.cnt || 10;
 	
 	if (docSize === 0) {
@@ -129,7 +130,8 @@ function databaseSearch(res, query, category, date) {
 			}
 			
 			else {
-				return res.send(docs);
+				result.list = docs;
+				return res.send(result);
 			}		
 		
 	});
