@@ -25,7 +25,7 @@ module.exports = function(app) {
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	next();
 	});
-	
+
 	app.use('/database',databaseError);
 	//error handling middleware
 	
@@ -72,7 +72,7 @@ function databaseSave(data, category, res) {
 			return res.status(500).send("Error occured in POST database: Incorrect JSON file/format");
 		}
 	
-	var request = databaseModel(_.extend(data, {lastUpdate: moment().format("ddd, MMM DD YYYY"), postOrigin: category}));
+	var request = databaseModel(_.extend(data, {lastUpdate: Number(moment().format("YYYYMMDD")), postOrigin: category}));
 	//creating database model using function constructor
 	//adding time and source properties
 	
@@ -109,11 +109,12 @@ function databaseSearch(res, query, category, date) {
 	} 
 	else {
 		search = {postOrigin: category,
-			lastUpdate: moment(date,"YYYYMMDD").format("ddd, MMM DD YYYY")};
+			lastUpdate: moment(date,"YYYYMMDD").format("YYYYMMDD")};
 	}
 	
 	databaseModel
 	.find(search)
+	.sort('-lastUpdate -postUpvote')
 	.limit(docSize)
 	.exec(function(err, docs) {
 		if (err) {
@@ -137,8 +138,8 @@ function databaseDownload (res) {
 		//this is only useful when starting server
 	
 		databaseModel.find({})
+		.sort({'lastUpdate': -1, 'postUpvote': -1})
 		.exec(function(err, docs) {
-			
 			//finding all webposts from mongoDB
 		if (err) {
 			res.status(500).send("Error occured in GET databaseModel");

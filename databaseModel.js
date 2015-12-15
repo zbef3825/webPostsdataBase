@@ -5,11 +5,11 @@ mongoose.connect("mongodb://webserver:webserver@ds047930.mongolab.com:47930/link
 var Schema = mongoose.Schema;
 var dataAttributes = new Schema({
 		postTitle : String,
-		postUpvote : String,
+		postUpvote : Number,
 		postLink : String,
 		commentLink : String,
 		rankingPosition : String,
-		lastUpdate : String,
+		lastUpdate : Number,
 		postOrigin : String
 });
 
