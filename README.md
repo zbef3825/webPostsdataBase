@@ -8,10 +8,10 @@ Instruction is written in index.html <br>
 <li>Pipeline/stream Data intake</li>
 <li>Asynch duplication check</li>
 <li>Add update API</li>
-<li>number of webposts GET request</li>
 </ul>
 
 <ul>Completed
 <li>csv checking mechanism is required (Dec 6)</li>
+<li>number of webposts GET request(Dec 15)</li>
 </ul>
 
