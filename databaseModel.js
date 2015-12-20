@@ -1,6 +1,13 @@
 var mongoose = require('mongoose');
+var fs = require('fs');
 
-mongoose.connect("mongodb://webserver:webserver@ds047930.mongolab.com:47930/link_agg");
+fs.readFile('./databaseadd.txt','utf-8', function(err, data){
+	if(err) throw err;
+	var decrypt = new Buffer(data,'base64').toString('utf-8');
+	mongoose.connect(decrypt, function(err) {
+		if(err) throw err;
+	});
+});
 
 var Schema = mongoose.Schema;
 var dataAttributes = new Schema({
