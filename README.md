@@ -13,5 +13,6 @@ Instruction is written in index.html <br>
 <ul>Completed
 <li>csv checking mechanism is required (Dec 6)</li>
 <li>number of webposts GET request(Dec 15)</li>
+<li>modified mongodb address(Dec 20)</li>
 </ul>
 
