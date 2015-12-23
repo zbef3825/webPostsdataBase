@@ -5,12 +5,9 @@ var app = express();
 var PORT = process.env.PORT || 3000;
 //setting up local port or current environment port
 
-var database = require('./database.js');
+var dbindex = require('./database/dbindex');
 
 app.use(express.static(__dirname + '/public'));
-
-database(app);
-
-
+dbindex(app);
 app.listen(PORT);
 //starting a server

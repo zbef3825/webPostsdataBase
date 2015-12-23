@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var fs = require('fs');
 
-fs.readFile('./databaseadd.txt','utf-8', function(err, data){
+fs.readFile('./database/databaseadd.txt','utf-8', function(err, data){
 	if(err) throw err;
 	var decrypt = new Buffer(data,'base64').toString('utf-8');
 	mongoose.connect(decrypt, function(err) {
