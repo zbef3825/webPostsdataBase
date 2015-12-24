@@ -4,7 +4,6 @@ var path = require('path');
 
 function CSVFILE(res, docs) {
 	
-	var file;
 	var fields = ['postTitle', 'postUpvote', 'postLink', 'commentLink', 'rankingPosition', 'lastUpdate', 'postOrigin'];
 	//fields that required by json2csv module
 	
