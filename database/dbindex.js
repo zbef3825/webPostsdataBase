@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var bodyParserJson = bodyParser.json();
 
 var expressJWT = require('express-jwt');
+var jwt = require('jsonwebtoken');
 
 module.exports = function(app) {
 	
@@ -18,6 +19,17 @@ module.exports = function(app) {
 		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 		next();
 	});
+	
+	app.use(expressJWT({ 
+		//checks token exist in the header and checks for bottom attributes
+		secret: process.env.secretcode,
+		userID: "scrapy" || "guest",
+		issuer: "PWWT Server"
+		})
+		//does not check when users routes to homepage or login page
+		.unless({path: ['/','/login']}));
+	//Every route is protected with JWT authentication except homepage and login page
+	
 
 	app.use('/api',databaseError);
 	//error handling middleware
@@ -41,8 +53,16 @@ module.exports = function(app) {
 		databaseSearch(res, req.query, req.params.category, req.params.date);
 	});
 	
-	app.post('/api/save/:category', [expressJWT({ secret:"Cheesecake"}), bodyParserJson], function(req,res) {
-		//storing data of :category				
+	app.post('/api/save/:category', bodyParserJson, function(req,res) {
+		//checks if initial time and expiration time exists in req.user object
+		if (!req.user.iat || !req.user.exp) {
+			res.status(401).send('Permission Denied');
+		}
+		//making sure log time is in between 30 mins for maximum uses
+		else if (Number(req.user.exp) - Number(req.user.iat) > 1801000) {
+			res.status(401).send('Permission Denied');
+		}
+		//storing data of :category			
 		databaseSave(req.body, req.params.category, res);			
 	});
 	
@@ -55,6 +75,9 @@ module.exports = function(app) {
 		if (err.name === "UnauthorizedError") {
 			res.status(401).send('Permission Denied');
 		}
-		res.status(500).send("Contact Admin (Error1)");
+		else {
+			res.status(500).send("Internal Error. Contact Admin");
+		}
+		
 	}	
 }
