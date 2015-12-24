@@ -61,6 +61,6 @@ module.exports = function databaseLogin(loginData, res) {
 			res.status(401).send("USERNAME OR PASSWORD IS INCORRECT");
 		}
 		//close connection for optimzation
-		loginInfoMongoose.connection.close();
+		//loginInfoMongoose.connection.close();
 	});	
 }

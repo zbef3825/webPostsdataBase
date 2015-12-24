@@ -1,6 +1,7 @@
 var databaseModel = require('./databaseModel.js');
 var moment = require('moment');
 var _ = require('underscore');
+var EventEmitter = require('events');
 
 module.exports = function databaseSave(data, category, res) {
 		//saving data into MongoDB
@@ -12,8 +13,8 @@ module.exports = function databaseSave(data, category, res) {
 		
 		var request = databaseModel(_.extend(data, {lastUpdate: Number(moment().format("YYYYMMDD")), postOrigin: category}));
 		//creating database model using function constructor
-		//adding time and source properties
-		
+		//adding timesstamp and source properties
+		console.log(request);
 		request.save(function(err){
 			//save the requested data and throw error if there is
 				if (err) throw err;
