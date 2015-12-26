@@ -11,6 +11,7 @@ fs.readFile('./database/databaseadd1.txt','utf-8', function(err, data){
 
 var Schema = mongoose.Schema;
 var dataAttributes = new Schema({
+        scrapyName : String,
 		postTitle : String,
 		postUpvote : Number,
 		postLink : String,

@@ -56,12 +56,14 @@ module.exports = function(app) {
 	app.post('/api/save/:category', bodyParserJson, function(req,res) {
 		//checks if initial time and expiration time exists in req.user object
 		if (!req.user.iat || !req.user.exp) {
-			res.status(401).send('Permission Denied');
+			return res.status(401).send('Permission Denied');
 		}
+        
 		//making sure log time is in between 30 mins for maximum uses
-		else if (Number(req.user.exp) - Number(req.user.iat) > 1801000) {
-			res.status(401).send('Permission Denied');
-		}
+		// else if (Number(req.user.exp) - Number(req.user.iat) > 1801000) {
+		// 	return res.status(401).send('Permission Denied');
+		// }
+        
 		//storing data of :category			
 		databaseSave(req.body, req.params.category, res);			
 	});
