@@ -37,6 +37,9 @@ module.exports = function databaseLogin(loginData, res) {
 		else if(data[0].password === loginData.password) {
 			//determining the time expiration of token depending on login ID
 			switch (loginData.userID) {
+                case "admin":
+                    timeExp = "600m";
+                    break;
 				case "scrapy":
 					timeExp = "60s";
 					break;
@@ -61,6 +64,6 @@ module.exports = function databaseLogin(loginData, res) {
 			res.status(401).send("USERNAME OR PASSWORD IS INCORRECT");
 		}
 		//close connection for optimzation
-		loginInfoMongoose.connection.close();
+		//loginInfoMongoose.connection.close();
 	});	
 }
