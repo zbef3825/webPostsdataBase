@@ -6,6 +6,7 @@ Instruction is written in index.html <br>
 
 <ul>To do
 <li>Pipeline/stream Data intake</li>
+<li>Jasmine Test Module</li>
 </ul>
 
 <ul>Completed
