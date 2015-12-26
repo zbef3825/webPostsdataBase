@@ -37,6 +37,9 @@ module.exports = function databaseLogin(loginData, res) {
 		else if(data[0].password === loginData.password) {
 			//determining the time expiration of token depending on login ID
 			switch (loginData.userID) {
+                case "admin":
+                    timeExp = "600m";
+                    break;
 				case "scrapy":
 					timeExp = "60s";
 					break;

@@ -6,8 +6,6 @@ Instruction is written in index.html <br>
 
 <ul>To do
 <li>Pipeline/stream Data intake</li>
-<li>Asynch duplication check</li>
-<li>Add update API</li>
 </ul>
 
 <ul>Completed
@@ -16,5 +14,8 @@ Instruction is written in index.html <br>
 <li>modified mongodb address(Dec 20)</li>
 <li>Login Page(Dec 23)</li>
 <li>JWT functionality(Dec 23)</li>
+<li>Asynch duplication check(Dec 24)</li>
+<li>Add update API (Dec 24)</li>
+<li>Modification of WebPost save interface(Can now take single JSON or Array JSON (Dec 25)</li>
 </ul>
 

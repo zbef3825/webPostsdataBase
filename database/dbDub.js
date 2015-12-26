@@ -32,7 +32,7 @@ module.exports = function dbDub() {
             "$ne": 1
             }
     })
-    .exec( function(err,doc) {
+    .exec(function(err,doc) {
         if (err) throw err;
         dubDoc['lists'] = doc
         for (var list in dubDoc.lists) {
@@ -48,8 +48,6 @@ module.exports = function dbDub() {
                     });
                 }
             });            
-        }
-        //console.log(dubDoc.list[1].oid);
-       
+        }       
     });
 };

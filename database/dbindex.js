@@ -58,10 +58,12 @@ module.exports = function(app) {
 		if (!req.user.iat || !req.user.exp) {
 			return res.status(401).send('Permission Denied');
 		}
+        
 		//making sure log time is in between 30 mins for maximum uses
-		else if (Number(req.user.exp) - Number(req.user.iat) > 1801000) {
-			return res.status(401).send('Permission Denied');
-		}
+		// else if (Number(req.user.exp) - Number(req.user.iat) > 1801000) {
+		// 	return res.status(401).send('Permission Denied');
+		// }
+        
 		//storing data of :category			
 		databaseSave(req.body, req.params.category, res);			
 	});
