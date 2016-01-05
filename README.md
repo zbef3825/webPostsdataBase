@@ -4,9 +4,6 @@
 Development Heroku: calm-springs-9697.herokuapp.com
 
 ## API Instruction
-1. Make a POST request through "calm-springs-9697.herokuapp.com/login"
-a. Make sure Content-Type is application/json.
-b. 'userID' and 'password' fields must be sent through (case sensitive).
 
 ```javascript
 {
@@ -15,16 +12,20 @@ b. 'userID' and 'password' fields must be sent through (case sensitive).
 }
 ```
 
+1. Make a POST request through "calm-springs-9697.herokuapp.com/login"
+<p>a. Make sure Content-Type is application/json.</p>
+<p>b. 'userID' and 'password' fields must be sent through (case sensitive).</p>
+
 2. If userID and password are valid, you will receive a token. Token will expire depending on userID.
-a. If you are scrapy, you will receive 60 seconds to upload your data. Once the token is expired you will have to go through login process again.
+<p>a. If you are scrapy, you will receive 60 seconds to upload your data. Once the token is expired you will have to go through login process again.</p>
 
 3. You may now use a token as Header to make GET, POST requests throughout the server
-a. Your Headers should contain "Content-Type" as "application/json" and "Authorization" as "Bearer Token"
-b. GET '/api/all' to see all the web posts
-c. GET '/api/:category' to see web posts of different category
-d. GET '/api/:category/:date' to see web posts of different category on specific date(YYYMMDD)
-e. GET '/api/download' to download all web posts in CSV file
-f. POST '/api/save/:category' to upload webpost of :category
+<p>a. Your Headers should contain "Content-Type" as "application/json" and "Authorization" as "Bearer Token"</p>
+<p>b. GET '/api/all' to see all the web posts</p>
+<p>c. GET '/api/:category' to see web posts of different category</p>
+<p>d. GET '/api/:category/:date' to see web posts of different category on specific date(YYYMMDD)</p>
+<p>e. GET '/api/download' to download all web posts in CSV file</p>
+<p>f. POST '/api/save/:category' to upload webpost of :category</p>
 
 4. If you are scrapy and want to upload data, use following JSON schema:
 ```javascript
@@ -37,23 +38,23 @@ var dataAttributes = new Schema({
 		rankingPosition : String
 });
 ```
-a. All the attibutes must be included in JSON format as the server checks for the json validation
-b. If you are uploading one web post at a time, make sure to send following JSON before AND after transmission:
-Before:
+<p>a. All the attibutes must be included in JSON format as the server checks for the json validation</p>
+<p>b. If you are uploading one web post at a time, make sure to send following JSON before AND after transmission:</p>
+<p>Before:</p>
 ```javascript
 {
     "start": true,
     "scrapyName": [name]
 }
 ```
-After:
+<p>After:</p>
 ```javascript
 {
     "end": true,
     "scrapyName": [name]
 }
 ```
-c. If you are uploading data in array, you do not need to send before and after
+<p>c. If you are uploading data in array, you do not need to send before and after</p>
 ```javascript
 [
     {
@@ -76,7 +77,7 @@ c. If you are uploading data in array, you do not need to send before and after
 
 ```
 
-d. When a scrapy performing POST request, it is impossible for other scrapys to interfere with POST operation. Please make sure your scrapy is timed
+<p>d. When a scrapy performing POST request, it is impossible for other scrapys to interfere with POST operation. Please make sure your scrapy is timed</p>
 
 ## To Do List
 
