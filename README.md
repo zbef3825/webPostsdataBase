@@ -1,13 +1,30 @@
-# web posts database server
+# PWWT database server
 
-Development Heroku: calm-springs-9697.herokuapp.com <br>
+## Usage
+Development Heroku: calm-springs-9697.herokuapp.com
 
-Instruction is written in index.html <br>
+## API Instruction
+1. Make a POST request through "calm-springs-9697.herokuapp.com/login"
+1a. Make sure Content Type is JSON format.
+1b. 'userID' and 'password' fields must be sent through (case sensitive).
+1c. Example {"userID": [userID Name], "password":[password]}
+2. If userID and password are valid, you will receive a token. Token will be expired depending on userID.
+2a. If you are scrapy, you will receive 60 seconds to upload your data. Once the token is expired you will have to go through login process again.
+3. You may now use a token to make GET request throughout the server
+4a. GET '/api/all' to see all the web posts
+4b. GET '/api/:category' to see web posts of different category
+4c. GET '/api/:category/:date' to see web posts of different category on specific date(YYYMMDD)
+4d. GET '/api/download' to download all web posts in CSV file
+4e. POST '/api/save/:category' to upload webpost of :category
+
+## To Do List
 
 <ul>To do
 <li>Pipeline/stream Data intake</li>
 <li>Jasmine Test Module</li>
 </ul>
+
+## History
 
 <ul>Completed
 <li>csv checking mechanism is required (Dec 6)</li>
