@@ -29,9 +29,7 @@ var dataAttributes = new Schema({
 		postUpvote : Number,
 		postLink : String,
 		commentLink : String,
-		rankingPosition : String,
-		lastUpdate : Number,
-		postOrigin : String
+		rankingPosition : String
 });
 ```
 <p>All the attibutes must be included in JSON format as the server checks for the json validation</p>
@@ -50,6 +48,29 @@ var dataAttributes = new Schema({
     scrapyName: [name]
 }
 ```
+<p>If you are uploading data in array, you do not need to send before and after</p>
+```javascript
+[
+    {
+        scrapyName : [Name],
+		postTitle : [Title],
+		postUpvote : [Upvote],
+		postLink : [linkaddress],
+		commentLink : [linkaddress],
+		rankingPosition : [Ranking]
+    },
+    {
+        scrapyName : [Name],
+		postTitle : [Title],
+		postUpvote : [Upvote],
+		postLink : [linkaddress],
+		commentLink : [linkaddress],
+		rankingPosition : [Ranking]
+    }
+]
+
+```
+
 <p>When a scrapy performing POST request, it is impossible for other scrapys to interfere with POST operation. Please make sure your scrapy is timed</p>
 
 ## To Do List
