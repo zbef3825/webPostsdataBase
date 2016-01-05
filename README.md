@@ -7,7 +7,12 @@ Development Heroku: calm-springs-9697.herokuapp.com
 1. Make a POST request through "calm-springs-9697.herokuapp.com/login"
 <p>1a. Make sure Content Type is JSON format.</p>
 <p>1b. 'userID' and 'password' fields must be sent through (case sensitive).</p>
-<p>1c. Example {"userID": [userID Name], "password":[password]} </p>
+```javascript
+{
+     "userID": [userID Name], 
+     "password":[password]
+}
+```
 2. If userID and password are valid, you will receive a token. Token will be expired depending on userID.
 <p>2a. If you are scrapy, you will receive 60 seconds to upload your data. Once the token is expired you will have to go through login process again.</p>
 3. You may now use a token to make GET request throughout the server
@@ -30,12 +35,29 @@ var dataAttributes = new Schema({
 });
 ```
 <p>All the attibutes must be included in JSON format as the server checks for the json validation</p>
+<p>4a. If you are uploading one web post at a time, make sure to send following JSON before AND after transmission:</p>
+<p>Before:</p>
+```javascript
+{
+    start: true,
+    scrapyName: [name]
+}
+```
+<p>After:</p>
+```javascript
+{
+    end: true,
+    scrapyName: [name]
+}
+```
+<p>when a scrapy performing POST request, it is impossible for other scrapys to interfere with POST operation. Please make sure your scrapy is timed</p>
 
 ## To Do List
 
-<ul>To do
+<ul>
 <li>Pipeline/stream Data intake</li>
 <li>Jasmine Test Module</li>
+<li>Uploading Error Messages for multiple scrapy</li>
 </ul>
 
 ## History
