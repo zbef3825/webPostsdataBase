@@ -13,7 +13,7 @@ Development Heroku: calm-springs-9697.herokuapp.com
 3. You may now use a token to make GET request throughout the server
 <p>3a. GET '/api/all' to see all the web posts<p>
 <p>3b. GET '/api/:category' to see web posts of different category<p>
-<p>3c. GET '/api/:category/:date' to see web posts of different category on specific date(YYYMMDD)<p><br>
+<p>3c. GET '/api/:category/:date' to see web posts of different category on specific date(YYYMMDD)<p>
 <p>3d. GET '/api/download' to download all web posts in CSV file<p>
 <p>3e. POST '/api/save/:category' to upload webpost of :category<p>
 
