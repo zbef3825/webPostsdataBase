@@ -33,6 +33,7 @@ module.exports = function databaseSave(data, category, res) {
         });
         //at the end of upload checking duplication check
         dubCheck();
+        
          //confirmation sign with 200 status
         return res.status(200).send(numPost + " web posts saved!");
     }
