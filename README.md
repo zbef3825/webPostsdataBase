@@ -13,7 +13,7 @@ Development Heroku: calm-springs-9697.herokuapp.com
      "password":[password]
 }
 ```
-2. If userID and password are valid, you will receive a token. Token will be expired depending on userID.
+2. If userID and password are valid, you will receive a token. Token will expire depending on userID.
 <p>2a. If you are scrapy, you will receive 60 seconds to upload your data. Once the token is expired you will have to go through login process again.</p>
 3. You may now use a token to make GET request throughout the server
 <p>3a. GET '/api/all' to see all the web posts</p>
@@ -50,7 +50,7 @@ var dataAttributes = new Schema({
     scrapyName: [name]
 }
 ```
-<p>when a scrapy performing POST request, it is impossible for other scrapys to interfere with POST operation. Please make sure your scrapy is timed</p>
+<p>When a scrapy performing POST request, it is impossible for other scrapys to interfere with POST operation. Please make sure your scrapy is timed</p>
 
 ## To Do List
 
