@@ -37,35 +37,35 @@ var dataAttributes = new Schema({
 <p>Before:</p>
 ```javascript
 {
-    start: true,
-    scrapyName: [name]
+    "start": true,
+    "scrapyName": [name]
 }
 ```
 <p>After:</p>
 ```javascript
 {
-    end: true,
-    scrapyName: [name]
+    "end": true,
+    "scrapyName": [name]
 }
 ```
 <p>If you are uploading data in array, you do not need to send before and after</p>
 ```javascript
 [
     {
-        scrapyName : [Name],
-		postTitle : [Title],
-		postUpvote : [Upvote],
-		postLink : [linkaddress],
-		commentLink : [linkaddress],
-		rankingPosition : [Ranking]
+        "scrapyName" : [Name],
+		"postTitle" : [Title],
+		"postUpvote" : [Upvote],
+		"postLink" : [linkaddress],
+		"commentLink" : [linkaddress],
+		"rankingPosition" : [Ranking]
     },
     {
-        scrapyName : [Name],
-		postTitle : [Title],
-		postUpvote : [Upvote],
-		postLink : [linkaddress],
-		commentLink : [linkaddress],
-		rankingPosition : [Ranking]
+        "scrapyName" : [Name],
+		"postTitle" : [Title],
+		"postUpvote" : [Upvote],
+		"postLink" : [linkaddress],
+		"commentLink" : [linkaddress],
+		"rankingPosition" : [Ranking]
     }
 ]
 
