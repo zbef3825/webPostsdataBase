@@ -5,8 +5,8 @@ Development Heroku: calm-springs-9697.herokuapp.com
 
 ## API Instruction
 1. Make a POST request through "calm-springs-9697.herokuapp.com/login"
-<p>a. Make sure Content-Type is application/json.</p>
-<p>b. 'userID' and 'password' fields must be sent through (case sensitive).</p>
+a. Make sure Content-Type is application/json.
+b. 'userID' and 'password' fields must be sent through (case sensitive).
 
 ```javascript
 {
@@ -19,7 +19,7 @@ Development Heroku: calm-springs-9697.herokuapp.com
 <p>a. If you are scrapy, you will receive 60 seconds to upload your data. Once the token is expired you will have to go through login process again.</p>
 
 3. You may now use a token as Header to make GET, POST requests throughout the server
-<p>a Your Headers should contain "Content-Type" as "application/json" and "Authorization" as "Bearer Token"</p>
+<p>a. Your Headers should contain "Content-Type" as "application/json" and "Authorization" as "Bearer Token"</p>
 <p>b. GET '/api/all' to see all the web posts</p>
 <p>c. GET '/api/:category' to see web posts of different category</p>
 <p>d. GET '/api/:category/:date' to see web posts of different category on specific date(YYYMMDD)</p>
