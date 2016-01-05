@@ -5,7 +5,7 @@ Development Heroku: calm-springs-9697.herokuapp.com
 
 ## API Instruction
 1. Make a POST request through "calm-springs-9697.herokuapp.com/login"
-<p>1a. Make sure Content Type is JSON format.</p>
+<p>1a. Make sure Content-Type is application/json.</p>
 <p>1b. 'userID' and 'password' fields must be sent through (case sensitive).</p>
 ```javascript
 {
@@ -15,12 +15,13 @@ Development Heroku: calm-springs-9697.herokuapp.com
 ```
 2. If userID and password are valid, you will receive a token. Token will expire depending on userID.
 <p>2a. If you are scrapy, you will receive 60 seconds to upload your data. Once the token is expired you will have to go through login process again.</p>
-3. You may now use a token to make GET request throughout the server
-<p>3a. GET '/api/all' to see all the web posts</p>
-<p>3b. GET '/api/:category' to see web posts of different category</p>
-<p>3c. GET '/api/:category/:date' to see web posts of different category on specific date(YYYMMDD)</p>
-<p>3d. GET '/api/download' to download all web posts in CSV file</p>
-<p>3e. POST '/api/save/:category' to upload webpost of :category</p>
+3. You may now use a token as Header to make GET, POST requests throughout the server
+<p>3a Your Headers should contain "Content-Type" as "application/json" and "Authorization" as "Bearer [Token]"</p>
+<p>3b. GET '/api/all' to see all the web posts</p>
+<p>3c. GET '/api/:category' to see web posts of different category</p>
+<p>3d. GET '/api/:category/:date' to see web posts of different category on specific date(YYYMMDD)</p>
+<p>3e. GET '/api/download' to download all web posts in CSV file</p>
+<p>3f. POST '/api/save/:category' to upload webpost of :category</p>
 4. If you are scrapy and want to upload data, use following JSON schema:
 ```javascript
 var dataAttributes = new Schema({
