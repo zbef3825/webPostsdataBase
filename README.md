@@ -16,7 +16,7 @@ Development Heroku: calm-springs-9697.herokuapp.com
 2. If userID and password are valid, you will receive a token. Token will expire depending on userID.
 <p>2a. If you are scrapy, you will receive 60 seconds to upload your data. Once the token is expired you will have to go through login process again.</p>
 3. You may now use a token as Header to make GET, POST requests throughout the server
-<p>3a Your Headers should contain "Content-Type" as "application/json" and "Authorization" as "Bearer [Token]"</p>
+<p>3a Your Headers should contain "Content-Type" as "application/json" and "Authorization" as "Bearer Token"</p>
 <p>3b. GET '/api/all' to see all the web posts</p>
 <p>3c. GET '/api/:category' to see web posts of different category</p>
 <p>3d. GET '/api/:category/:date' to see web posts of different category on specific date(YYYMMDD)</p>
