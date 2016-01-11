@@ -57,7 +57,9 @@ module.exports = function databaseLogin(loginData, res) {
 					issuer: "PWWT Server",
 					expiresIn: timeExp
 			});
-			res.status(200).send("Token Granted: " + token);
+			res.status(200).send({
+                token: token
+            });
 		}
 		//returning incorrect username or password message
 		else {
