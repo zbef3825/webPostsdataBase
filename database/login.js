@@ -41,7 +41,7 @@ module.exports = function databaseLogin(loginData, res) {
                     timeExp = "600m";
                     break;
 				case "scrapy":
-					timeExp = "100s";
+					timeExp = "300s";
 					break;
 				case "guest":
 					timeExp = "30m";
