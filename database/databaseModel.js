@@ -13,7 +13,7 @@ var Schema = mongoose.Schema;
 var dataAttributes = new Schema({
         scrapyName : String,
 		postTitle : String,
-		postUpvote : Number,
+		postUpvote : String,
 		postLink : String,
 		commentLink : String,
 		rankingPosition : String,
