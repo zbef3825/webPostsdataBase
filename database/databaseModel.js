@@ -14,6 +14,7 @@ var dataAttributes = new Schema({
         scrapyName : String,
 		postTitle : String,
 		postUpvote : String,
+        subcategory: String,
 		postLink : String,
 		commentLink : String,
 		rankingPosition : String,
