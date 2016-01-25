@@ -16,26 +16,36 @@ module.exports = function databaseSave(data, category, res) {
     if (Object.prototype.toString.call(data) === "[object Array]")   {
         //goes through each elements in Array to see if it has valid key/values
         var numPost = 0;
-        data.forEach(function (list){
-            if(!list.hasOwnProperty("postTitle") && !list.hasOwnProperty("postLink")) {
-                return res.status(500).send("Error occured in POST database: Incorrect JSON file/format");
-            }
-            else {
-                //save each post to mongoDB
-                var request = databaseModel(_.extend(list, {lastUpdate: Number(moment().format("YYYYMMDD")), postOrigin: category}));
-                numPost += 1;
-                //save the requested data and throw error if there is
-                request.save(function(err){
-                    if (err) throw err;
-                    });
-               	   
-            }          
-        });
-        //at the end of upload checking duplication check
-        dubCheck();
         
-         //confirmation sign with 200 status
-        return res.status(200).send(numPost + " web posts saved!");
+        var promise = data.map(function(list, index) {
+            return new Promise(function(resolve, reject) {
+                if(!list.hasOwnProperty("postTitle") && !list.hasOwnProperty("postLink")) {
+                    reject();
+                }
+                else {
+                    var request = databaseModel(_.extend(list, {lastUpdate: Number(moment().format("YYYYMMDDHHmm")), postOrigin: category}));
+                    numPost += 1;
+                    //save the requested data and throw error if there is
+                    request.save(function(err){
+                        if (err) throw err;
+                        console.log("Saving...");
+                        resolve();
+                        });  
+                    }
+            });    
+        });        
+        
+        Promise.all(promise)
+        .then(function() {
+            console.log("Uploading Complete! Checking for Duplication");
+            //at the end of upload checking duplication check
+            dubCheck();
+            //confirmation sign with 200 status
+            return res.status(200).send(numPost + " web posts saved!");
+            
+        }, function(){
+            return res.status(500).send("Error occured in POST database: Incorrect JSON file/format");
+        });
     }
     
     //checking if data is singular Object
@@ -69,7 +79,7 @@ module.exports = function databaseSave(data, category, res) {
                 return res.status(200).send("Scrapy is detached!");
             }
             else if(!data.hasOwnProperty("start") && !data.hasOwnProperty("end") && process.env.scrapyName === data.scrapyName) {
-                var request = databaseModel(_.extend(data, {lastUpdate: Number(moment().format("YYYYMMDD")), postOrigin: category}));
+                var request = databaseModel(_.extend(data, {lastUpdate: Number(moment().format("YYYYMMDDHHmm")), postOrigin: category}));
                 //save the requested data and throw error if there is
                 request.save(function(err){
                     if (err) throw err;

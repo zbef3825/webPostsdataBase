@@ -4,12 +4,43 @@ var moment = require('moment');
 var dubDoc = {};
 
 module.exports = function dbDub() {
+    dubCheck();
+}
+
+function deleteDub(oidArray, resolveFN) {
+    var promises = oidArray.map(function(dubID, index){
+        return new Promise(function(resolve, reject){
+            if(index !== 0) {
+                dbModel
+                .find({
+                    _id: dubID
+                })
+                .remove()
+                .exec(function(){
+                    resolve();
+                });
+            }
+            else {
+                console.log("Keeping old value...");
+                resolve();
+            }
+        });
+    });
+    
+    var end = Promise.all(promises).then(function(){
+        console.log("Duplication deleted!");
+        return resolveFN();
+    });
+    return end;    
+}
+
+function dubCheck() {
     dbModel
     //aggregate framework for pulling data
     .aggregate()
-    //matching with today date
+    //matching with today (24 hours)
     .match({
-        lastUpdate: Number(moment().format("YYYYMMDD"))
+        lastUpdate: { $gt: Number(moment().format("YYYYMMDDHHmm"))- 2000 }
         })
     //grouping them by post title and Link to look for duplication
     .group({
@@ -18,6 +49,7 @@ module.exports = function dbDub() {
             postLink: "$postLink"
         },
         //Needs this data so we know the first array is the most updated and rest are old data
+        //in order to have proper data order, we need keep the last data
         oid: {
             $push: "$_id"
         },
@@ -32,22 +64,40 @@ module.exports = function dbDub() {
             "$ne": 1
             }
     })
-    .exec(function(err,doc) {
-        if (err) throw err;
-        dubDoc['lists'] = doc
-        for (var list in dubDoc.lists) {
-            dubDoc.lists[list].oid.forEach( function(dubid,index){
-                if (index !== 0) {
+    //returns promise object
+    .exec()
+    .then(function(doc){
+        //console.log(doc);
+        var dubPosts = doc.map(function(dubpost){
+            return new Promise(function(resolve, reject) {
+                var result = dbModel
+                .find({
+                    _id: dubpost.oid[dubpost.oid.length-1]
+                })
+                .exec();
+                result.then(function(doc){
                     dbModel
-                    .find({
-                        _id: dubid
+                    .update({
+                        _id: dubpost.oid[0]
+                    }, {
+                        postUpvote: doc[0].postUpvote
                     })
-                    .remove()
-                    .exec( function(err, doc){
-                        if (err) throw err;
-                    });
-                }
-            });            
-        }       
+                    .exec();
+                    //console.log("Updated old value to new value"); 
+                    deleteDub(dubpost.oid, resolve);
+                    
+                }, function(err) {
+                    if (err) {
+                        reject(err);
+                    }
+                });
+            });
+        });
+        
+        Promise.all(dubPosts).then(function(){
+            console.log("All Documents updated and deleted duplication!");                
+        }, function(err){
+            throw err;
+        });   
     });
-};
+}
