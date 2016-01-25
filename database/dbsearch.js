@@ -25,7 +25,8 @@ module.exports = function databaseSearch(res, query, category, date) {
 		} 
 		else {
 			search = {postOrigin: category,
-				lastUpdate: Number(moment(date,"YYYYMMDD").format("YYYYMMDD"))};
+				lastUpdate: { $lt: Number(moment().format("YYYYMMDDHHmm"))}
+                };
 		}
 		//finding documents using search condition
 		//sort it by lastUpdate then post upvote
