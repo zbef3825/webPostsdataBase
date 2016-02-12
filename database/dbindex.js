@@ -50,9 +50,10 @@ module.exports = function(app) {
 		databaseSearch(res, req.query, req.params.category);
 	});
 	
-	app.get('/api/:category/:date', function(req, res) {
+    //probably main api that will be used by our Angular App
+	app.get('/api/:category/:date/:skip', function(req, res) {
 		//prints out all posts of :category	
-		databaseSearch(res, req.query, req.params.category, req.params.date);
+		databaseSearch(res, req.query, req.params.category, req.params.date, req.params.skip);
 	});
 	
 	app.post('/api/save/:category', bodyParserJson, function(req,res) {

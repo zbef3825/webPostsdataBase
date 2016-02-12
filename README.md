@@ -85,6 +85,7 @@ var dataAttributes = new Schema({
 <li>Pipeline/stream Data intake</li>
 <li>Jasmine Test Module</li>
 <li>Uploading Error Messages for multiple scrapy</li>
+<li>Implement paginate search functionality</li>
 </ul>
 
 ## History
