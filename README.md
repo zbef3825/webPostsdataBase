@@ -11,7 +11,7 @@ calm-springs-9697.herokuapp.com
      "password":[password]
 }
 ```
-
+## *LOGIN*
 1. Make a POST request through "calm-springs-9697.herokuapp.com/login"
 <p>Make sure Content-Type is application/json.</p>
 <p>Make sure 'userID' and 'password' fields is not blank.</p>
@@ -20,7 +20,8 @@ calm-springs-9697.herokuapp.com
 2. If userID and password are valid, you will receive a token. Token will expire when user logs out.
 <p>*If you are scrapy, you will receive 60 seconds to upload your data. Once the token is expired you will have to go through login process again.</p>
 
-3. You may now use a token as Header to make GET and POST requests throughout the server
+## *GET & POST*
+1. You may now use a token as Header to make GET and POST requests throughout the server
 <p>Your Headers should contain "Content-Type" as "application/json" and "Authorization" as "Bearer Token"</p>
 
 *To see all the web posts:
@@ -39,7 +40,7 @@ calm-springs-9697.herokuapp.com
 <p>POST '/api/save/:category'</p>
 
 
-4. If you are scrapy and want to upload data, use following JSON schema:
+2. If you are scrapy and want to upload data, use following JSON schema:
 ```javascript
 var dataAttributes = new Schema({
         scrapyName : String,
